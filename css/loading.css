@@ -1,0 +1,65 @@
+#loading {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(58, 58, 58, 0.583);
+    flex-direction: column;
+}
+.loader{
+    position: relative;
+    margin:auto;
+}
+.col-sm-2 {
+  padding: 10px;
+  border-radius: 4px;
+  height: 125px;
+  margin-bottom: 10px;
+}
+.sp {
+  width: 64px;
+  height: 64px;
+  clear: both;
+  margin: 20px auto;
+}
+.sp-clock {
+  border: 2px #FFFFFF solid;
+  border-radius: 50%;
+  position: relative;
+}
+.sp-clock:before {
+  content: "";
+  border-left: 2px #FFFFFF solid;
+  position: absolute;
+  top: 4px;
+  width: 2px;
+  height: calc( 50% - 4px );
+  -webkit-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -ms-transform-origin: 0% 100%;
+  -webkit-transform-origin: 0% 100%;
+  transform-origin: 0% 100%;
+  -webkit-animation: spClock 1s infinite linear;
+  animation: spClock 1s infinite linear;
+}
+@-webkit-keyframes spClock {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+@keyframes spClock {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
