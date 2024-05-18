@@ -119,6 +119,27 @@ p {
   text-decoration: none;
   color: black;
 }
+
+#inputImg {
+  display: none;
+}
+
+#cameraButton {
+  display: inline-block;
+  padding: 10px 30px;
+  font-size: 18px;
+  color: #000;
+  background-color: transparent;
+  border: 1px solid #000;
+  border-radius: 7px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+#cameraButton:hover {
+  background-color: grey;
+}
 /*Search button area form END*/
 
 /*Catchphrase area START*/
