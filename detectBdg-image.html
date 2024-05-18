@@ -38,9 +38,9 @@
       crossorigin="anonymous"
     ></script>
     <link href="css/custom.css" rel="stylesheet" />
-    <link href="css/detectBdg.css" rel="stylesheet" />
+    <link href="css/detectBdg-image.css" rel="stylesheet" />
     <link href="css/loading.css" rel="stylesheet" />
-    <script src="js/detectBdg.js"></script>
+    <script src="js/detectBdg-image.js"></script>
     <!-- Google tag (gtag.js) -->
     <script
       async
@@ -73,32 +73,26 @@
       <!-- Top image area START -->
       <div class="image-container search-view">
         <a href="index.html">
-          <img class="lazyload search-view" src="img/mainImg.png" />
+          <img
+            class="lazyload search-view"
+            src="img/bdg-camera-removebg-preview.png"
+          />
         </a>
       </div>
       <!-- Top image area END -->
 
       <!-- Search Area START-->
       <div id="searchArea">
-        <div id="textArea" class="align-center">
-          <p class="area-title">ボードゲームの名前を入力↓</p>
-          <div class="search-box">
+        <div class="align-center">
+          <p class="area-title">ボードゲームの写真を撮ってね！</p>
+          <div id="cameraBtnPosision">
             <input
-              type="text"
-              name="inputText"
-              id="inputText"
-              class="search-input"
-              placeholder="(例)カタン"
-              value="カタン"
+              type="file"
+              id="inputImg"
+              name="inputImg"
+              accept="image/"
+              capture="camera"
             />
-            <button
-              type="submit"
-              name="searchBdgByText"
-              id="searchBdgByText"
-              class="search-button"
-            >
-              <i class="fas fa-search"></i>
-            </button>
           </div>
         </div>
         <div class="outer-catchArea">
@@ -110,8 +104,8 @@
               <p class="catchTextGroup2">『でも、どういうゲーム？！』</p>
               <p class="catchTextGroup2 catchText3">そんな疑問にChatGPTが</p>
               <p class="catchTextGroup2">答えてくれます！</p>
-              <a class="to-image-link" href="detectBdg-image.html"
-                >写真を撮って、ボードゲームを検索する場合はこちら</a
+              <a class="to-image-link" href="detectBdg.html"
+                >ボードゲームの名前から検索する場合はこちら</a
               >
             </div>
           </div>
@@ -124,12 +118,14 @@
         <div class="result-card">
           <h2 class="result-title align-center">ChatGPTの答え</h2>
           <div class="result-detail">
-            <p class="result-question">ボードゲーム名</p>
+            <p class="result-question">ボードゲーム名は?</p>
             <p class="result-answer" id="requestBdgNm"></p>
-            <p class="result-question">どんなゲーム？</p>
+            <p class="result-question">一言でいうとどんなゲーム?</p>
             <p class="result-answer" id="gptAnswer1"></p>
+            <p class="result-question">ゲームのルールは？</p>
+            <p class="result-answer" id="gptAnswer2"></p>
             <p class="text-chatgpt">powered by ChatGPT</p>
-            <a class="back-btn" href="detectBdg.html">
+            <a class="back-btn" href="detectBdg-image.html">
               <i class="fa-solid fa-caret-left"></i> 戻る
             </a>
           </div>

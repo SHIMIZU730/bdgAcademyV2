@@ -140,6 +140,11 @@ p {
   width: 100%;
   margin-bottom: 10px;
 }
+。to-image-link {
+  margin-top: 30px;
+  text-decoration: none;
+  color: black;
+}
 /*Catchphrase area END*/
 
 /* Result Area START */
