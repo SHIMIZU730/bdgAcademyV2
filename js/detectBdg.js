@@ -45,9 +45,8 @@ $(document).ready(function () {
           "Exception : Incorrect network response, gpt response error"
         );
       }
-      // Get return value as a json
       const data = await response.json();
-      return data["body"];
+      return data.body;
     } catch (e) {
       console.error("gptFetchのエラー");
     }
@@ -68,11 +67,14 @@ $(document).ready(function () {
       // Exec bdg name
       const responseText = await getBdgInfo(argsBdgNm);
 
+      console.log(responseText);
+
       // Set the response
       displaySearchArea("hide");
       displayResultArea("show");
       $("#requestBdgNm").text(argsBdgNm);
-      $("#gptAnswer1").text(responseText);
+      $("#gptAnswer1").text(responseText[0]);
+      $("#gptAnswer2").html(responseText[1].replace(/\n/g, "<br>"));
 
       $("#loading").css("display", "none");
     }
