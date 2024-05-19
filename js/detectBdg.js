@@ -30,16 +30,31 @@ $(document).ready(function () {
    * @returns responseText
    */
   async function getBdgInfo(argsBdgNm) {
+    const TIMEOUT = 20000;
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(
+        () => reject(new Error("リクエストがタイムアウトしました")),
+        TIMEOUT
+      )
+    );
+
     const url =
       "https://gp8gumd4lb.execute-api.ap-northeast-1.amazonaws.com/first";
+
     args = {
       argsBdgNm: argsBdgNm,
     };
+
+    const fetchPromise = fetch(url, {
+      method: "POST",
+      body: JSON.stringify(args),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
     try {
-      const response = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(args),
-      });
+      const response = await Promise.race([fetchPromise, timeoutPromise]);
       if (!response.ok) {
         throw new Error(
           "Exception : Incorrect network response, gpt response error"
@@ -48,7 +63,7 @@ $(document).ready(function () {
       const data = await response.json();
       return data.body;
     } catch (e) {
-      console.error("gptFetchのエラー");
+      alert("ChatGPTへの接続が失敗もしくはタイムアウトしました。");
     }
   }
 
@@ -67,15 +82,17 @@ $(document).ready(function () {
       // Exec bdg name
       const responseText = await getBdgInfo(argsBdgNm);
 
-      console.log(responseText);
-
-      // Set the response
-      displaySearchArea("hide");
-      displayResultArea("show");
-      $("#requestBdgNm").text(argsBdgNm);
-      $("#gptAnswer1").text(responseText[0]);
-      $("#gptAnswer2").html(responseText[1].replace(/\n/g, "<br>"));
-
+      if (responseText === undefined || responseText.length == 0) {
+        displaySearchArea("show");
+        displayResultArea("hide");
+      } else {
+        // Set the response
+        displaySearchArea("hide");
+        displayResultArea("show");
+        $("#requestBdgNm").text(argsBdgNm);
+        $("#gptAnswer1").text(responseText[0]);
+        $("#gptAnswer2").html(responseText[1].replace(/\n/g, "<br>"));
+      }
       $("#loading").css("display", "none");
     }
   }

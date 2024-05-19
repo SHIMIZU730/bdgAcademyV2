@@ -30,20 +30,31 @@ $(document).ready(function () {
    * @returns responseText
    */
   async function getBdgInfoByImage(base64Image) {
+    const TIMEOUT = 20000;
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(
+        () => reject(new Error("リクエストがタイムアウトしました")),
+        TIMEOUT
+      )
+    );
     const url =
       "https://zozb5lj190.execute-api.ap-northeast-1.amazonaws.com/first/";
 
     const args = {
       inputImage: base64Image,
     };
+
+    const fetchPromise = fetch(url, {
+      method: "POST",
+      body: JSON.stringify(args),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
     try {
-      const response = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(args),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await Promise.race([fetchPromise, timeoutPromise]);
+
       if (!response.ok) {
         throw new Error(
           "Exception : Incorrect network response, gpt response error"
@@ -52,7 +63,7 @@ $(document).ready(function () {
       const data = await response.json();
       return data.body;
     } catch (e) {
-      console.error("gptFetchのエラー");
+      alert("ChatGPTへの接続が失敗もしくはタイムアウトしました。");
     }
   }
 
@@ -82,13 +93,17 @@ $(document).ready(function () {
     // Exec bdg name
     const responseText = await getBdgInfoByImage(base64Image);
 
-    // Set the response
-    displaySearchArea("hide");
-    displayResultArea("show");
-    $("#requestBdgNm").text(responseText[0]);
-    $("#gptAnswer1").text(responseText[1]);
-    $("#gptAnswer2").html(responseText[2].replace(/\n/g, "<br>"));
-
+    if (responseText === undefined || responseText.length == 0) {
+      displaySearchArea("show");
+      displayResultArea("hide");
+    } else {
+      // Set the response
+      displaySearchArea("hide");
+      displayResultArea("show");
+      $("#requestBdgNm").text(responseText[0]);
+      $("#gptAnswer1").text(responseText[1]);
+      $("#gptAnswer2").html(responseText[2].replace(/\n/g, "<br>"));
+    }
     $("#loading").css("display", "none");
   }
 
