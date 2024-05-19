@@ -9,7 +9,11 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url("../img/bg-search.jpg");
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url("../img/bg-image.jpg");
 }
 .container {
   padding: 0;
@@ -58,13 +62,17 @@ p {
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  width: 100%;
 }
 .image-container img {
-  width: 100%;
+  width: 70%;
   height: auto;
+  display: block;
+  margin: 0 auto;
 }
 .image-container img.search-view {
   max-width: 400px;
+  text-align: center;
 }
 /*Hidden until the image is loaded */
 .image-container img.lazyload {
@@ -216,6 +224,12 @@ p {
 }
 .back-btn i {
   color: black;
+}
+.captureed-image {
+  width: 50%;
+  height: auto;
+  margin: 0 auto;
+  display: block;
 }
 /* Result Area EMND*/
 

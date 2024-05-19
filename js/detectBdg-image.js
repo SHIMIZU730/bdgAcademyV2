@@ -63,6 +63,7 @@ $(document).ready(function () {
       const data = await response.json();
       return data.body;
     } catch (e) {
+      console.log(e);
       alert("ChatGPTへの接続が失敗もしくはタイムアウトしました。");
     }
   }
@@ -96,6 +97,10 @@ $(document).ready(function () {
     if (responseText === undefined || responseText.length == 0) {
       displaySearchArea("show");
       displayResultArea("hide");
+      // Remove the image if it exists
+      if ($("#captureed-image").attr("src")) {
+        $("#captureed-image").removeAttr("src");
+      }
     } else {
       // Set the response
       displaySearchArea("hide");
@@ -127,8 +132,11 @@ $(document).ready(function () {
     if (file) {
       const reader = new FileReader();
       reader.onload = function (e) {
+        // Base64 image data
         const base64Image = e.target.result.split(",")[1];
         execGptByCamera(base64Image);
+        // Display the image
+        $("#captureed-image").attr("src", reader.result);
       };
       reader.readAsDataURL(file);
     } else {
