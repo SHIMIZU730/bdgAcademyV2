@@ -50,6 +50,7 @@ $(document).ready(function () {
       body: JSON.stringify(args),
       headers: {
         "Content-Type": "application/json",
+        "x-api-key": "bd5BoIUYku1PHoiPKO4yL3seg7wAkWyo2WOCqCr6",
       },
     });
 
@@ -63,6 +64,7 @@ $(document).ready(function () {
       const data = await response.json();
       return data.body;
     } catch (e) {
+      alert(e);
       alert("ChatGPTへの接続が失敗もしくはタイムアウトしました。");
     }
   }
