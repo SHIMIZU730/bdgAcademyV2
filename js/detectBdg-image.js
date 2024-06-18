@@ -49,6 +49,7 @@ $(document).ready(function () {
       body: JSON.stringify(args),
       headers: {
         "Content-Type": "application/json",
+        "x-api-key": "bd5BoIUYku1PHoiPKO4yL3seg7wAkWyo2WOCqCr6",
       },
     });
 
